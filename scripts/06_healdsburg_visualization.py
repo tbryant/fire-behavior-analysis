@@ -126,14 +126,21 @@ class HealdsburgFireVisualizer:
         }
         
         # Create legend - colors match representative models from each category
+        # Comprehensive legend - showing all major color variations
         legend_items = [
-            ('Non-burnable (NB)', '#A9A9A9'),           # NB3 Agriculture gray
-            ('Grass (GR1-9)', '#FFD700'),               # GR4 Gold
-            ('Grass-Shrub (GS1-4)', '#FFB366'),         # GS3 Light orange
-            ('Shrub (SH1-9)', '#228B22'),               # SH5 Forest green
-            ('Timber-Understory (TU1-5)', '#3CB371'),   # TU3 Medium sea green
-            ('Timber Litter (TL1-9)', '#556B2F'),       # TL2 Dark olive green
-            ('Slash-Blowdown (SB1-4)', '#8B4513'),      # SB2 Saddle brown
+            ('Urban/Developed (NB1)', '#F5DEB3'),       # NB1 Wheat
+            ('Agriculture (NB3)', '#A9A9A9'),           # NB3 Gray
+            ('Water (NB8)', '#87CEEB'),                 # NB8 Sky blue
+            ('Barren (NB9)', '#4682B4'),                # NB9 Steel blue
+            ('Grass - Short (GR1-3)', '#FFFF99'),       # GR1-3 Light yellow
+            ('Grass - Tall/Dense (GR4-9)', '#FF8C00'),  # GR4-9 Orange
+            ('Grass-Shrub (GS1-4)', '#FFB366'),         # GS1-4 Peach/Orange
+            ('Shrub - Dry (SH1-3)', '#9ACD32'),         # SH1-3 Yellow-green
+            ('Shrub - Humid (SH4-9)', '#228B22'),       # SH4-9 Forest green
+            ('Timber-Understory (TU1-5)', '#66CDAA'),   # TU1-5 Aquamarine
+            ('Timber Litter - Olive (TL1-7)', '#556B2F'),  # TL1-7 Dark olive
+            ('Timber Litter - Navy (TL8-9)', '#000080'),   # TL8-9 Navy blue
+            ('Slash-Blowdown (SB1-4)', '#8B4513'),      # SB1-4 Saddle brown
         ]
         
         return None, fuel_model_colors, legend_items
@@ -306,30 +313,51 @@ class HealdsburgFireVisualizer:
                 tooltip='Data Boundary'
             ).add_to(m)
         
-        # Add legend
+        # Add legend (left side, below zoom controls, hidden by default)
+        # Will be shown/hidden via JavaScript when layer is toggled
         legend_html = '''
-        <div style="position: fixed; 
-                    bottom: 50px; right: 50px; width: 250px; height: auto; 
-                    background-color: white; z-index:9999; font-size:14px;
+        <div id="fuel-legend" style="position: fixed; 
+                    top: 150px; left: 10px; width: 260px; height: auto; 
+                    background-color: white; z-index:9999; font-size:12px;
                     border:2px solid grey; border-radius: 5px; padding: 10px;
-                    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);">
-        <h4 style="margin-top:0; margin-bottom:10px;">FBFM40 Fuel Models</h4>
+                    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+                    display: block;">
+        <h4 style="margin-top:0; margin-bottom:10px; font-size:14px;">Fuel Models (FBFM40)</h4>
         '''
         
         for label, color in fuel_legend:
             legend_html += f'''
-            <div style="margin-bottom: 5px;">
-                <span style="background-color:{color}; width:20px; height:20px; 
+            <div style="margin-bottom: 4px;">
+                <span style="background-color:{color}; width:18px; height:18px; 
                       display:inline-block; border:1px solid black; margin-right:5px;"></span>
-                <span>{label}</span>
+                <span style="font-size:11px;">{label}</span>
             </div>
             '''
         
         legend_html += '''
-        <div style="margin-top:10px; padding-top:10px; border-top:1px solid #ccc; font-size:12px;">
-            <b>Toggle layers:</b> Use layer control (top-right)
         </div>
-        </div>
+        <script>
+        // Toggle legend visibility when Fuel Models layer is toggled
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for map to be fully loaded
+            setTimeout(function() {
+                var legend = document.getElementById('fuel-legend');
+                // Check for layer control changes
+                document.addEventListener('click', function(e) {
+                    setTimeout(function() {
+                        // Check if fuel model layer checkbox exists and is checked
+                        var layerInputs = document.querySelectorAll('.leaflet-control-layers-overlays input');
+                        layerInputs.forEach(function(input) {
+                            var label = input.nextSibling;
+                            if (label && label.textContent.includes('Fuel Models')) {
+                                legend.style.display = input.checked ? 'block' : 'none';
+                            }
+                        });
+                    }, 100);
+                });
+            }, 500);
+        });
+        </script>
         '''
         m.get_root().html.add_child(folium.Element(legend_html))
         

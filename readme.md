@@ -15,7 +15,10 @@ python scripts/04_demo_analysis.py
 python scripts/05_interactive_region_selector.py
 python download_healdsburg.py
 
-# 4. Interactive fire calculator
+# 4. Visualize fuel models on interactive map
+python scripts/06_healdsburg_visualization.py
+
+# 5. Interactive fire calculator
 python fire_calc.py
 ```
 
@@ -37,6 +40,7 @@ fire-analysis/
 │   ├── 03_arcgis_integration.py     # ArcGIS workflows
 │   ├── 04_demo_analysis.py          # Complete demo with synthetic data
 │   ├── 05_interactive_region_selector.py  # Web map for region selection
+│   ├── 06_healdsburg_visualization.py     # Interactive fuel model visualization
 │   └── real_data_downloader.py      # LANDFIRE data downloader
 ├── fire_calc.py                     # Interactive CLI calculator
 ├── download_healdsburg.py           # Example download script
