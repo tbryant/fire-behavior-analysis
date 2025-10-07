@@ -19,6 +19,9 @@ python scripts/05_interactive_region_selector.py
 # Generate interactive fire behavior map
 python scripts/06_healdsburg_visualization.py
 
+# Run fire behavior predictions
+python examples/healdsburg_fire_predictions.py
+
 # Publish to GitHub Pages
 python update_pages.py
 ```
@@ -26,9 +29,10 @@ python update_pages.py
 ## Features
 
 - **Fire Behavior Modeling**: Rothermel surface fire spread and Van Wagner crown fire models
+- **Fire Predictions**: Landscape-scale fire behavior predictions under multiple weather scenarios
 - **LANDFIRE Integration**: Download and process real geospatial fuel data from USGS
 - **Interactive Visualizations**: Web maps showing fire spread rates, flame lengths, crown fire potential
-- **Risk Analysis**: Landscape-scale fire behavior assessment
+- **Risk Analysis**: Landscape-scale fire behavior assessment across different conditions
 - **GitHub Pages Publishing**: One-command deployment of interactive maps
 
 ## Project Structure
@@ -42,11 +46,13 @@ fire-behavior-analysis/
 │   ├── 04_demo_analysis.py
 │   ├── 05_interactive_region_selector.py
 │   ├── 06_healdsburg_visualization.py
+│   ├── 07_healdsburg_fire_predictions.py
 │   └── real_data_downloader.py
 ├── examples/             # Example scripts and tools
 │   ├── download_healdsburg.py
 │   ├── download_landfire.py
 │   ├── fire_calc.py
+│   ├── healdsburg_fire_predictions.py
 │   └── check_status.py
 ├── update_pages.py       # Publish to GitHub Pages
 ├── docs/                 # GitHub Pages site
@@ -113,6 +119,33 @@ files = downloader.download_sample_area(
 - **ASPD**: Aspect Degrees
 
 ## Fire Behavior Analysis
+
+### Healdsburg Fire Predictions Example
+
+Generate landscape-scale fire behavior predictions under different weather scenarios:
+
+```bash
+# Download LANDFIRE data for Healdsburg (if not already done)
+python examples/download_healdsburg.py
+
+# Run fire predictions for multiple weather scenarios
+python examples/healdsburg_fire_predictions.py
+```
+
+This creates an interactive map showing:
+- **Flame length predictions** across the landscape (color-coded)
+- **Rate of spread** predictions for each fuel type
+- **Multiple weather scenarios**: Typical summer, Red Flag Warning, Extreme conditions
+- **Interactive layer control** to compare scenarios
+
+**Example scenarios analyzed:**
+1. **Typical Summer Day**: 8 mph winds, 80°F, 35% RH
+2. **Red Flag Warning**: 25 mph winds, 95°F, 15% RH  
+3. **Extreme Fire Weather (Diablo Winds)**: 40 mph winds, 105°F, 8% RH
+
+Output files:
+- `outputs/healdsburg_fire_predictions.html` - Interactive map
+- `outputs/healdsburg_fire_predictions_statistics.json` - Statistics for each scenario
 
 ### Calculate Fire Spread
 ```python

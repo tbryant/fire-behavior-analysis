@@ -68,6 +68,74 @@ Complete demonstration using synthetic data - no external data required.
 python 04_demo_analysis.py
 ```
 
+### 5. `05_interactive_region_selector.py`
+Interactive web-based map for selecting and downloading LANDFIRE data regions.
+
+**Features:**
+- Draw custom regions on interactive map
+- Automatically calculates download specifications
+- Generates download configuration
+
+**Usage:**
+```bash
+python 05_interactive_region_selector.py
+# Opens browser at http://localhost:8000/outputs/landfire_selector.html
+```
+
+### 6. `06_healdsburg_visualization.py`
+Creates interactive visualization of LANDFIRE data for Healdsburg, CA.
+
+**Features:**
+- Fuel model raster overlays (FBFM40)
+- Canopy cover and slope layers
+- Multiple base maps (satellite, topographic)
+- Interactive legend and measurement tools
+
+**Usage:**
+```bash
+python 06_healdsburg_visualization.py
+```
+
+### 7. `07_healdsburg_fire_predictions.py` ⭐ **NEW**
+Landscape-scale fire behavior predictions using real LANDFIRE data.
+
+**Calculates:**
+- Fire spread rates across entire landscape
+- Flame length predictions for each pixel
+- Fireline intensity mapping
+- Statistics for multiple weather scenarios
+
+**Features:**
+- Uses actual LANDFIRE fuel and terrain data
+- Applies Rothermel fire spread model pixel-by-pixel
+- Compares multiple weather scenarios
+- Generates color-coded prediction maps
+
+**Usage:**
+```python
+from scripts.healdsburg_fire_predictions import HealdsburgFirePredictor
+
+predictor = HealdsburgFirePredictor()
+predictor.load_data()
+
+scenarios = [
+    {
+        'scenario_name': 'Red Flag Warning',
+        'wind_speed': 25,
+        'fuel_moisture': 5,
+        'temperature': 95,
+        'relative_humidity': 15,
+    }
+]
+
+predictor.create_prediction_map(scenarios)
+```
+
+Or run the example:
+```bash
+python examples/healdsburg_fire_predictions.py
+```
+
 ## Installation
 
 ### Basic Setup (Required)
