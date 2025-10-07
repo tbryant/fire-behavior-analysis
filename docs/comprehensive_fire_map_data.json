@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "title": "Comprehensive Fire Analysis - Healdsburg, CA",
+    "date_created": "2025-10-07",
+    "simulation_type": "Fire Spread Prediction"
+  },
+  "ignition": {
+    "latitude": 38.64,
+    "longitude": -122.84,
+    "location_description": "Northeast grasslands",
+    "row": 588,
+    "col": 1405
+  },
+  "weather_conditions": {
+    "wind_speed_mph": 70,
+    "wind_direction_degrees": 45,
+    "wind_direction_name": "Northeast",
+    "fuel_moisture_percent": 2,
+    "temperature_fahrenheit": 95,
+    "relative_humidity_percent": 25,
+    "conditions_description": "Extreme fire weather - similar to peak Tubbs Fire conditions"
+  },
+  "fire_behavior": {
+    "duration_hours": 48,
+    "burned_area_acres": 1090,
+    "burned_pixels": 4913,
+    "mean_ros_ft_per_min": 3.004340410232544,
+    "max_ros_ft_per_min": 8.399999618530273,
+    "ignition_ros_ft_per_min": 1.2300000190734863
+  },
+  "isochrones": {
+    "intervals_hours": [
+      0,
+      1,
+      3,
+      6,
+      12,
+      24,
+      48,
+      72
+    ],
+    "colors": [
+      {
+        "range": "0-1 hr",
+        "color": "#FF0000",
+        "priority": "IMMEDIATE"
+      },
+      {
+        "range": "1-3 hrs",
+        "color": "#FF6400",
+        "priority": "URGENT"
+      },
+      {
+        "range": "3-6 hrs",
+        "color": "#FFA500",
+        "priority": "HIGH"
+      },
+      {
+        "range": "6-12 hrs",
+        "color": "#FFD700",
+        "priority": "MODERATE"
+      },
+      {
+        "range": "12-24 hrs",
+        "color": "#ADD8E6",
+        "priority": "PLANNING"
+      },
+      {
+        "range": "24-48 hrs",
+        "color": "#9370DB",
+        "priority": "LOW"
+      },
+      {
+        "range": "48-72 hrs",
+        "color": "#4B0082",
+        "priority": "MINIMAL"
+      }
+    ]
+  },
+  "data_layers": [
+    {
+      "name": "Fuel Models (FBFM40)",
+      "type": "raster",
+      "description": "Scott & Burgan 40 fire behavior fuel models",
+      "visible_by_default": true
+    },
+    {
+      "name": "Slope",
+      "type": "raster",
+      "description": "Terrain slope in degrees",
+      "visible_by_default": false
+    },
+    {
+      "name": "Fire Spread Prediction",
+      "type": "raster",
+      "description": "Time-to-arrival isochrones (48 hours)",
+      "visible_by_default": true
+    }
+  ],
+  "base_layers": [
+    {
+      "name": "OpenStreetMap",
+      "type": "tile",
+      "description": "Street map with labels"
+    },
+    {
+      "name": "Satellite Imagery",
+      "type": "tile",
+      "description": "Aerial photography from Esri"
+    }
+  ],
+  "statistics": {
+    "total_area_analyzed_acres": 888000.0,
+    "burnable_area_acres": 504903.702,
+    "percent_burned": 0.2160186181403756
+  }
+}

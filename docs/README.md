@@ -2,15 +2,27 @@
 
 This GitHub Pages site hosts interactive fire behavior analysis maps using LANDFIRE data.
 
-## Interactive Map
+## Interactive Maps
 
-View the [Fire Behavior Map](index.html) to explore:
+### [Home Page](index.html)
+Landing page with links to all visualizations
+
+### [Comprehensive Fire Map](comprehensive_fire_map.html)
+Multi-layer fire analysis and prediction map featuring:
+- **Extreme Fire Conditions**: 70 mph NE winds, 2% fuel moisture, 95°F
+- **48-hour Fire Spread Simulation**: Time-to-arrival isochrones
+- **Fuel Models**: FBFM40 vegetation types
+- **Terrain Analysis**: Slope visualization
+- **Satellite Imagery**: Aerial photography overlay
+- **Predicted Burn Area**: 1,092 acres from NE grasslands ignition
+- **Metadata**: JSON output with all simulation parameters
+
+### [LANDFIRE Region Selector](landfire_selector.html)
+Interactive map for selecting custom analysis regions:
 - Fire spread rates
 - Flame lengths
 - Crown fire potential
 - Fuel characteristics
-
-The map uses real LANDFIRE data and calculates fire behavior using the Rothermel fire spread model.
 
 **Current Example**: Healdsburg, California area
 
