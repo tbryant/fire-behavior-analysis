@@ -1,79 +1,87 @@
-# Fire Analysis Toolkit
+# Fire Behavior Analysis
 
-Python-based wildfire modeling toolkit for fire behavior analysis, LANDFIRE data integration, and risk assessment.
+Python toolkit for wildfire modeling, LANDFIRE data integration, and interactive visualization.
+
+🌐 **[Live Demo](https://tbryant.github.io/fire-behavior-analysis/)** - Interactive fire map for Healdsburg, CA
 
 ## Quick Start
 
 ```bash
-# 1. Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# 2. Run demo with synthetic data
+# Run demo with synthetic data
 python scripts/04_demo_analysis.py
 
-# 3. Download real LANDFIRE data
+# Select region and download LANDFIRE data
 python scripts/05_interactive_region_selector.py
-python download_healdsburg.py
 
-# 4. Visualize fuel models on interactive map
+# Generate interactive fire behavior map
 python scripts/06_healdsburg_visualization.py
 
-# 5. Interactive fire calculator
-python fire_calc.py
+# Publish to GitHub Pages
+python update_pages.py
 ```
-
-## 🌐 Live Demo
-
-**[View Interactive Fire Map](https://tbryant.github.io/fire-behavior-analysis/)** - Explore fire behavior analysis for Healdsburg, CA (no installation required!)
 
 ## Features
 
-- **Fire Behavior Modeling**: Rothermel fire spread calculations with 5 fuel models (GR1, GR2, SH5, TU1, TL5)
+- **Fire Behavior Modeling**: Rothermel surface fire spread and Van Wagner crown fire models
 - **LANDFIRE Integration**: Download and process real geospatial fuel data from USGS
-- **Interactive Tools**: Web-based region selector and CLI calculator
-- **Risk Analysis**: Landscape-scale fire risk assessment and spread simulation
-- **ArcGIS Workflows**: Complexity analysis for project bidding
-- **GitHub Pages**: Share interactive visualizations online
+- **Interactive Visualizations**: Web maps showing fire spread rates, flame lengths, crown fire potential
+- **Risk Analysis**: Landscape-scale fire behavior assessment
+- **GitHub Pages Publishing**: One-command deployment of interactive maps
 
 ## Project Structure
 
 ```
-fire-analysis/
-├── scripts/
-│   ├── 01_landfire_downloader.py    # LANDFIRE data catalog
-│   ├── 02_fire_behavior_calc.py     # Rothermel fire model
-│   ├── 03_arcgis_integration.py     # ArcGIS workflows
-│   ├── 04_demo_analysis.py          # Complete demo with synthetic data
-│   ├── 05_interactive_region_selector.py  # Web map for region selection
-│   ├── 06_healdsburg_visualization.py     # Interactive fuel model visualization
-│   └── real_data_downloader.py      # LANDFIRE data downloader
-├── fire_calc.py                     # Interactive CLI calculator
-├── download_healdsburg.py           # Example download script
-├── data/landfire/                   # Downloaded raster data (not in git)
-└── outputs/                         # Analysis results and maps
+fire-behavior-analysis/
+├── scripts/              # Core analysis modules
+│   ├── 01_landfire_downloader.py
+│   ├── 02_fire_behavior_calc.py
+│   ├── 03_arcgis_integration.py
+│   ├── 04_demo_analysis.py
+│   ├── 05_interactive_region_selector.py
+│   ├── 06_healdsburg_visualization.py
+│   └── real_data_downloader.py
+├── examples/             # Example scripts and tools
+│   ├── download_healdsburg.py
+│   ├── download_landfire.py
+│   ├── fire_calc.py
+│   └── check_status.py
+├── update_pages.py       # Publish to GitHub Pages
+├── docs/                 # GitHub Pages site
+├── data/landfire/        # Downloaded raster data (not in git)
+└── outputs/              # Generated maps and reports
 ```
 
-## 📤 Publishing to GitHub Pages
+## Publishing to GitHub Pages
 
-Update your hosted fire maps easily:
+Share your fire maps online with one command:
 
 ```bash
-# Update main page with latest visualization
+# Generate visualization
+python scripts/06_healdsburg_visualization.py
+
+# Publish to GitHub Pages
 python update_pages.py
 
-# Add a specific output file
-python update_pages.py --source outputs/my_region_map.html --name my_region
-
-# List all published pages
-python update_pages.py --list
-
-# Then commit and push
-git add docs/
-git commit -m "Update fire visualization"
-git push
+# Commit and push
+git add docs/ && git commit -m "Update fire map" && git push
 ```
 
-Your maps will be live at: `https://YOUR_USERNAME.github.io/fire-behavior-analysis/`
+Your map will be live at `https://YOUR_USERNAME.github.io/fire-behavior-analysis/` in 1-2 minutes.
+
+**Additional options:**
+```bash
+# Publish specific file
+python update_pages.py --source outputs/my_map.html --name my_region
+
+# List published pages
+python update_pages.py --list
+
+# Create index for multiple maps
+python update_pages.py --create-index
+```
 
 ## Working with LANDFIRE Data
 
@@ -125,79 +133,38 @@ print(f"Rate of spread: {result['rate_of_spread_ch_hr']:.1f} chains/hr")
 print(f"Flame length: {result['flame_length_ft']:.1f} feet")
 ```
 
+## Fire Behavior Models
+
+**Rothermel Surface Fire Spread Model**
+- Calculates rate of spread based on fuel, weather, and topography
+- Outputs: spread rate, flame length, fireline intensity
+
+**Van Wagner Crown Fire Model**
+- Determines crown fire initiation and spread potential
+- Outputs: critical wind speeds, crown fire type (surface/passive/active)
+
 ## Dependencies
 
-Core packages:
+See `requirements.txt` for complete list. Key packages:
 - `numpy`, `pandas` - Data processing
-- `requests` - LANDFIRE API calls
+- `requests` - LANDFIRE API
 - `folium` - Interactive maps
-- `geopandas`, `shapely` - Geospatial operations
-- `arcgis` - ArcGIS integration (optional)
+- `geopandas`, `rasterio`, `shapely` - Geospatial operations
 
-See `requirements.txt` for complete list.
+## Data Sources
 
----
+- **LANDFIRE**: [landfire.gov](https://landfire.gov/) - Landscape fire and resource management tools
+- **Fire Models**: Scott & Burgan (2005) Standard Fire Behavior Fuel Models
 
-## Geospatial and Wildfire Mitigation Software Ecosystem
+## References
 
-This section outlines the broader software and data ecosystem for wildfire mitigation planning and operations.
+- Rothermel, R.C. (1972). A mathematical model for predicting fire spread in wildland fuels
+- Scott, J.H. & Burgan, R.E. (2005). Standard fire behavior fuel models
+- Van Wagner, C.E. (1977). Conditions for the start and spread of crown fire
 
-### 1. Foundational Data (Input for all Models)
+## License
 
-* **Tool:** LANDFIRE (Landscape Fire and Resource Management Planning Tools)
-* **Website:** [https://landfire.gov/](https://landfire.gov/)
-* **Action:**
-    * Use the website's data portal to download key geospatial layers for your Area of Interest (AOI).
-    * **Primary Layers for Analysis:** Fuel Buffer Model (FBFM40), Canopy Base Height (CBH), Canopy Bulk Density (CBD).
-    * **Coding Task:** Use Python libraries like `gdal` and `rasterio` to automate the downloading, clipping, and re-projecting of LANDFIRE data to match your project's coordinate system. This is a common preparatory step before loading data into ArcGIS or another model.
-
-    ```python
-    # Example pseudocode for data prep
-    # import gdal
-    #
-    # aoi_shapefile = 'path/to/my_project_boundary.shp'
-    # landfire_fuel_model_tif = 'path/to/downloaded_landfire_fuel.tif'
-    # output_clipped_tif = 'path/to/project_fuel_model.tif'
-    #
-    # # Use gdal.Warp to clip the raster to the shapefile boundary
-    # gdal.Warp(output_clipped_tif, landfire_fuel_model_tif, cutlineDSName=aoi_shapefile, cropToCutline=True)
-    ```
-
-### 2. Core Analysis and Planning Platforms (Commercial & Governmental)
-
-These systems are typically desktop or enterprise applications and are not installed via `pip` or `git`. The coding tasks involve data preparation *for* them or analysis of their *outputs*.
-
-* **Tool:** ESRI ArcGIS Pro
-* **Role:** Central hub for data management, visualization, and custom analysis (e.g., complexity analysis).
-* **Action:**
-    * **Coding Task:** Automate your "complexity analysis" using `arcpy`, ESRI's Python site-package. A script could take your prepared LANDFIRE layers (fuel, slope, canopy) and access data as inputs, then run a series of geoprocessing tools (e.g., Reclassify, Weighted Overlay) to produce a final complexity map. This standardizes your bidding process.
-
-* **Tool:** U.S. Forest Service FSIM (Large Fire Simulator)
-* **Website:** [https://www.firelab.org/project/fire-simulation-fsim-system](https://www.firelab.org/project/fire-simulation-fsim-system)
-* **Role:** Strategic, landscape-scale probabilistic risk assessment.
-* **Action:**
-    * Installation involves downloading the application and a large amount of specific data from the Forest Service.
-    * **Coding Task:** FSIM inputs are highly structured text files (`.lcp`, `.fmd`, etc.) and spatial data. A key coding task is writing Python scripts to convert your standard GIS data (like LANDFIRE TIFs) into the specific formats required by FSIM. Use `gdal` and `numpy` for this.
-
-* **Tool:** Technosylva Suite (Wildfire Analyst, FireSim)
-* **Website:** [https://www.technosylva.com/](https://www.technosylva.com/)
-* **Role:** Commercial, operational fire spread forecasting and risk analysis.
-* **Action:**
-    * This is licensed enterprise software. You cannot install it from a public repo.
-    * **Coding Task:** If Technosylva provides an API, you could write Python scripts to pull simulation results or risk data into your own systems for custom analysis or dashboarding.
-
-### 3. Open Source Simulators (For Research & Customization)
-
-These are tools you can install and run directly. They are best for specific, targeted research questions that fall outside the scope of the major platforms.
-
-* **Project:** ELMFIRE
-* **Repository:** `https://github.com/elmfire/elmfire`
-* **Primary Language:** C++
-* **Installation:** Follow build instructions in the repository. Requires a C++ compilation environment.
-    ```bash
-    git clone [https://github.com/elmfire/elmfire.git](https://github.com/elmfire/elmfire.git)
-    cd elmfire
-    # Follow makefile instructions
+MIT License
     ```
 * **Use Case:** Test specific fire spread hypotheses or compare a different model's output against your standard tools for a specific area.
 
