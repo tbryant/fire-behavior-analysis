@@ -22,6 +22,10 @@ python scripts/06_healdsburg_visualization.py
 python fire_calc.py
 ```
 
+## 🌐 Live Demo
+
+**[View Interactive Fire Map](https://tbryant.github.io/fire-behavior-analysis/)** - Explore fire behavior analysis for Healdsburg, CA (no installation required!)
+
 ## Features
 
 - **Fire Behavior Modeling**: Rothermel fire spread calculations with 5 fuel models (GR1, GR2, SH5, TU1, TL5)
@@ -29,6 +33,7 @@ python fire_calc.py
 - **Interactive Tools**: Web-based region selector and CLI calculator
 - **Risk Analysis**: Landscape-scale fire risk assessment and spread simulation
 - **ArcGIS Workflows**: Complexity analysis for project bidding
+- **GitHub Pages**: Share interactive visualizations online
 
 ## Project Structure
 
@@ -47,6 +52,28 @@ fire-analysis/
 ├── data/landfire/                   # Downloaded raster data (not in git)
 └── outputs/                         # Analysis results and maps
 ```
+
+## 📤 Publishing to GitHub Pages
+
+Update your hosted fire maps easily:
+
+```bash
+# Update main page with latest visualization
+python update_pages.py
+
+# Add a specific output file
+python update_pages.py --source outputs/my_region_map.html --name my_region
+
+# List all published pages
+python update_pages.py --list
+
+# Then commit and push
+git add docs/
+git commit -m "Update fire visualization"
+git push
+```
+
+Your maps will be live at: `https://YOUR_USERNAME.github.io/fire-behavior-analysis/`
 
 ## Working with LANDFIRE Data
 
