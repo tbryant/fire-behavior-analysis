@@ -1,30 +1,38 @@
 # Fire Analysis Visualization
 
-This GitHub Pages site hosts interactive fire behavior analysis maps using LANDFIRE data.
+Interactive wildfire behavior analysis and prediction using LANDFIRE data and the Rothermel fire spread model.
 
-## Interactive Maps
+## Interactive Map
 
-### [Home Page](index.html)
-Landing page with links to all visualizations
+**[View the Comprehensive Fire Map](index.html)**
 
-### [Comprehensive Fire Map](comprehensive_fire_map.html)
-Multi-layer fire analysis and prediction map featuring:
+### Features
+
 - **Extreme Fire Conditions**: 70 mph NE winds, 2% fuel moisture, 95°F
-- **48-hour Fire Spread Simulation**: Time-to-arrival isochrones
-- **Fuel Models**: FBFM40 vegetation types
+- **48-Hour Fire Spread Simulation**: Time-to-arrival isochrones showing fire progression
+- **Fuel Models Layer**: FBFM40 vegetation types (grass, shrub, timber)
 - **Terrain Analysis**: Slope visualization
-- **Satellite Imagery**: Aerial photography overlay
-- **Predicted Burn Area**: 1,092 acres from NE grasslands ignition
-- **Metadata**: JSON output with all simulation parameters
+- **Satellite Imagery**: Toggleable aerial photography overlay
+- **Predicted Burn Area**: 1,092 acres from NE grasslands ignition point
 
-### [LANDFIRE Region Selector](landfire_selector.html)
-Interactive map for selecting custom analysis regions:
-- Fire spread rates
-- Flame lengths
-- Crown fire potential
-- Fuel characteristics
+### Simulation Details
 
-**Current Example**: Healdsburg, California area
+Based on extreme conditions similar to the 2017 Tubbs Fire:
+- **Wind**: 70 mph from northeast (45°)
+- **Fuel Moisture**: 2% (critically dry)
+- **Temperature**: 95°F, 25% relative humidity
+- **Ignition**: Northeast grasslands with continuous fuel
+- **Duration**: 48-hour fire spread projection
+
+The map includes toggleable layers and time-to-arrival isochrones color-coded from immediate threat (red) to distant (purple).
+
+### Technical Details
+
+- **Metadata**: [JSON output file](comprehensive_fire_map_data.json) contains all simulation parameters and results
+- **Fire Model**: Rothermel (1972) surface fire spread equations
+- **Fuel Models**: Scott & Burgan (2005) FBFM40 classification
+- **Simulation**: Cellular wave propagation using Huygens' principle
+- **Data**: LANDFIRE landscape data for Healdsburg, California
 
 ## Data Sources
 

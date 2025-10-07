@@ -112,10 +112,20 @@ class ComprehensiveFireMap:
         # Load data
         self.load_data()
         
-        # Create base map
+        # Define simulation parameters at the top so they can be used in map setup
+        wind_speed = 70
+        wind_direction = 45  # Northeast
+        fuel_moisture = 2
+        temperature = 95
+        duration_hours = 48
+        ignition_lat = 38.64
+        ignition_lon = -122.84
+        location_name = "NE Grasslands"
+        
+        # Create base map centered on ignition point with closer zoom
         m = folium.Map(
-            location=[self.center_lat, self.center_lon],
-            zoom_start=12,
+            location=[ignition_lat, ignition_lon],
+            zoom_start=14,
             tiles='OpenStreetMap',
             control_scale=True
         )
@@ -129,15 +139,14 @@ class ComprehensiveFireMap:
             control=True
         ).add_to(m)
         
-        # Define simulation parameters at the top so they can be used in labels
-        wind_speed = 70
-        wind_direction = 45  # Northeast
-        fuel_moisture = 2
-        temperature = 95
-        duration_hours = 48
-        ignition_lat = 38.64
-        ignition_lon = -122.84
-        location_name = "NE Grasslands"
+        # Add topographic map layer
+        folium.TileLayer(
+            tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+            attr='Esri',
+            name='Topographic Map',
+            overlay=False,
+            control=True
+        ).add_to(m)
         
         # Add title with dynamic parameters
         title_html = f'''
@@ -312,6 +321,11 @@ class ComprehensiveFireMap:
                     "name": "Satellite Imagery",
                     "type": "tile",
                     "description": "Aerial photography from Esri"
+                },
+                {
+                    "name": "Topographic Map",
+                    "type": "tile",
+                    "description": "Topographic map with terrain contours from Esri"
                 }
             ],
             "statistics": {

@@ -107,6 +107,11 @@
       "name": "Satellite Imagery",
       "type": "tile",
       "description": "Aerial photography from Esri"
+    },
+    {
+      "name": "Topographic Map",
+      "type": "tile",
+      "description": "Topographic map with terrain contours from Esri"
     }
   ],
   "statistics": {
