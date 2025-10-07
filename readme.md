@@ -1,6 +1,115 @@
+# Fire Analysis Toolkit
+
+Python-based wildfire modeling toolkit for fire behavior analysis, LANDFIRE data integration, and risk assessment.
+
+## Quick Start
+
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Run demo with synthetic data
+python scripts/04_demo_analysis.py
+
+# 3. Download real LANDFIRE data
+python scripts/05_interactive_region_selector.py
+python download_healdsburg.py
+
+# 4. Interactive fire calculator
+python fire_calc.py
+```
+
+## Features
+
+- **Fire Behavior Modeling**: Rothermel fire spread calculations with 5 fuel models (GR1, GR2, SH5, TU1, TL5)
+- **LANDFIRE Integration**: Download and process real geospatial fuel data from USGS
+- **Interactive Tools**: Web-based region selector and CLI calculator
+- **Risk Analysis**: Landscape-scale fire risk assessment and spread simulation
+- **ArcGIS Workflows**: Complexity analysis for project bidding
+
+## Project Structure
+
+```
+fire-analysis/
+├── scripts/
+│   ├── 01_landfire_downloader.py    # LANDFIRE data catalog
+│   ├── 02_fire_behavior_calc.py     # Rothermel fire model
+│   ├── 03_arcgis_integration.py     # ArcGIS workflows
+│   ├── 04_demo_analysis.py          # Complete demo with synthetic data
+│   ├── 05_interactive_region_selector.py  # Web map for region selection
+│   └── real_data_downloader.py      # LANDFIRE data downloader
+├── fire_calc.py                     # Interactive CLI calculator
+├── download_healdsburg.py           # Example download script
+├── data/landfire/                   # Downloaded raster data (not in git)
+└── outputs/                         # Analysis results and maps
+```
+
+## Working with LANDFIRE Data
+
+### Select Region Interactively
+```bash
+python scripts/05_interactive_region_selector.py
+# Opens interactive map at http://localhost:8000/outputs/landfire_selector.html
+```
+
+### Download Data
+```python
+from scripts.real_data_downloader import LANDFIREDataDownloader
+
+downloader = LANDFIREDataDownloader()
+files = downloader.download_sample_area(
+    center_lat=38.6102,    # Healdsburg, CA
+    center_lon=-122.8694,
+    size_miles=10,         # ~100 sq mi
+    products=['FBFM40', 'CBH', 'CBD', 'CC', 'SLPD', 'ASPD']
+)
+```
+
+### Available Products
+- **FBFM40**: Fire Behavior Fuel Model (40 Scott & Burgan models)
+- **CBH**: Canopy Base Height
+- **CBD**: Canopy Bulk Density
+- **CC**: Canopy Cover
+- **SLPD**: Slope Degrees
+- **ASPD**: Aspect Degrees
+
+## Fire Behavior Analysis
+
+### Calculate Fire Spread
+```python
+from scripts.fire_behavior_calc import FireBehaviorCalculator
+
+calc = FireBehaviorCalculator()
+result = calc.calculate_fire_behavior(
+    fuel_model='GR2',        # Short grass
+    moisture_1hr=6,          # 6% fuel moisture
+    moisture_10hr=7,
+    moisture_100hr=8,
+    wind_speed=15,           # mph
+    slope=20,                # degrees
+    aspect=180               # south-facing
+)
+
+print(f"Rate of spread: {result['rate_of_spread_ch_hr']:.1f} chains/hr")
+print(f"Flame length: {result['flame_length_ft']:.1f} feet")
+```
+
+## Dependencies
+
+Core packages:
+- `numpy`, `pandas` - Data processing
+- `requests` - LANDFIRE API calls
+- `folium` - Interactive maps
+- `geopandas`, `shapely` - Geospatial operations
+- `arcgis` - ArcGIS integration (optional)
+
+See `requirements.txt` for complete list.
+
+---
+
 ## Geospatial and Wildfire Mitigation Software Ecosystem
 
-This guide outlines the software and data central to wildfire mitigation planning and operations, tailored to a workflow using ESRI ArcGIS and industry-standard models.
+This section outlines the broader software and data ecosystem for wildfire mitigation planning and operations.
 
 ### 1. Foundational Data (Input for all Models)
 

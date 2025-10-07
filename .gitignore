@@ -1,3 +1,109 @@
-.ipynb_checkpoints
-temp/
+# Python
+__pycache__/
 **/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Temporary
+temp/
+
+# Environment variables and credentials
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+credentials.json
+secrets.json
+config/secrets.yml
+
+# Data directory - ignore all data files but keep structure
+data/landfire/*
+!data/landfire/.gitkeep
+!data/landfire/README.md
+
+# Also catch data files anywhere in data/
+data/**/*.tif
+data/**/*.tiff
+data/**/*.zip
+data/**/*.tar.gz
+data/**/*.json
+data/**/*.geojson
+
+# Output files (regeneratable)
+outputs/*.html
+outputs/*.png
+outputs/*.jpg
+outputs/*.pdf
+outputs/*.tif
+outputs/*.json
+
+# Keep some outputs
+!outputs/README.md
+!outputs/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Large model files
+*.h5
+*.pkl
+*.joblib
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Archives
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Generated metadata (optional - uncomment if you want to ignore)
+# data/landfire/download_metadata_*.json
+# data/landfire/region_config.json
